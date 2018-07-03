@@ -6,6 +6,6 @@ Woohoo!
 
 Drew inspiration from
 
-+ `jwiegly` (and of course, for `use-package`)
-+ `bbatsov`
-+ `weavejester`
++ ~jwiegly~ (and of course, for ~use-package~)
++ ~bbatsov~
++ ~weavejester~
