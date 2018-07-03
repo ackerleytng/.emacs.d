@@ -1,0 +1,11 @@
+* Ackerley's Emacs config
+
+Woohoo!
+
+** Credits
+
+Drew inspiration from
+
++ `jwiegly` (and of course, for `use-package`)
++ `bbatsov`
++ `weavejester`
