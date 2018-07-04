@@ -50,7 +50,9 @@
 (eval-when-compile
   (require 'package)
   (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+	       '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives
+	       '("melpa-stable" . "https://stable.melpa.org/packages/") t)
   (package-initialize)
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
@@ -92,7 +94,8 @@
 	 ("C-'" . avy-goto-word-0)))
 
 (use-package cider
-  :ensure t)
+  :ensure t
+  :pin melpa-stable)
 
 (use-package clojure-mode
   :ensure t
@@ -101,8 +104,8 @@
 (use-package company               
   :ensure t
   :defer t
-  :init (global-company-mode)
   :config
+  (global-company-mode)
   (setq company-idle-delay 0.15
 	company-tooltip-limit 20
 	company-echo-delay 0
@@ -145,12 +148,38 @@
         helm-recentf-fuzzy-match t
         helm-split-window-in-side-p t))
 
+(use-package helm-ag
+  :if (executable-find "ag")
+  :ensure t
+  :commands (helm-ag helm-projectile-ag)
+  :config
+  (setq helm-ag-insert-at-point 'symbol
+	helm-ag-command-option "--path-to-ignore ~/.agignore"))
+
 (use-package helm-descbinds
   :ensure t
   :after helm
   :bind ("C-h b" . helm-descbinds)
   :init
   (fset 'describe-bindings 'helm-descbinds))
+
+(use-package helm-gtags
+  :ensure t
+  :if (executable-find "global")
+  :init
+  (setq helm-gtags-ignore-case t
+        helm-gtags-auto-update t
+        helm-gtags-use-input-at-cursor t
+        helm-gtags-pulse-at-cursor t
+        helm-gtags-prefix-key "\C-cg"
+        helm-gtags-suggested-key-mapping t)
+  :hook ((dired-mode
+	  eshell-mode
+	  c-mode c++-mode
+	  java-mode asm-mode) . helm-gtags)
+  :bind (:map helm-gtags-mode-map
+	      ("M-." . helm-gtags-dwim)
+	      ("M-," . helm-gtags-pop-stack)))
 
 (use-package helm-projectile
   :ensure t
@@ -198,45 +227,15 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;------------------------------------------------------------------------
-;; Packages with external dependencies
-;;------------------------------------------------------------------------
-
-(when (executable-find "ag")
-  (use-package helm-ag
-    :ensure t
-    :commands (helm-ag helm-projectile-ag)
-    :config
-    (setq helm-ag-insert-at-point 'symbol
-	  helm-ag-command-option "--path-to-ignore ~/.agignore")))
-
-(when (executable-find "global")
-  (use-package helm-gtags
-    :ensure t
-    :init
-    (setq helm-gtags-ignore-case t
-          helm-gtags-auto-update t
-          helm-gtags-use-input-at-cursor t
-          helm-gtags-pulse-at-cursor t
-          helm-gtags-prefix-key "\C-cg"
-          helm-gtags-suggested-key-mapping t)
-    :hook ((dired-mode
-	    eshell-mode
-	    c-mode c++-mode
-	    java-mode asm-mode) . helm-gtags)
-    :bind (:map helm-gtags-mode-map
-		("M-." . helm-gtags-dwim)
-		("M-," . helm-gtags-pop-stack))))
-
-(when (executable-find "sbcl")
-  (use-package slime
-    :ensure t
-    :commands slime
-    :init
-    (setq inferior-lisp-program "sbcl"
-          slime-contribs '(slime-fancy))
-    :config
-    (load (expand-file-name "~/quicklisp/slime-helper.el"))))
+(use-package slime
+  :ensure t
+  :if (executable-find "sbcl")
+  :commands slime
+  :init
+  (setq inferior-lisp-program "sbcl"
+        slime-contribs '(slime-fancy))
+  :config
+  (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
 ;;------------------------------------------------------------------------
 ;; Useful little functions
