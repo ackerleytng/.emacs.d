@@ -191,6 +191,16 @@
   :after helm
   :bind ("C-c h o" . helm-multi-swoop-all))
 
+(use-package js2-mode
+  :ensure t
+  :mode (("\\.js\\'" . js2-mode)
+         ("\\.js.erb\\'" . js2-mode)
+         ("\\.jsx\\'" . js2-jsx-mode))
+  :config
+  (setq js2-basic-offset 2
+	js2-strict-missing-semi-warning nil
+	js2-missing-semi-one-line-override nil))
+
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
