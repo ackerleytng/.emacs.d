@@ -84,7 +84,7 @@
 
 (use-package aggressive-indent
   :ensure t
-  :hook ((lisp-mode emacs-lisp-mode) . aggressive-indent-mode)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode) . aggressive-indent-mode)
   :diminish aggressive-indent-mode)
 
 (use-package avy
