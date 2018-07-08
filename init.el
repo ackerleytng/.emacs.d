@@ -95,6 +95,11 @@
 	 ("M-g g" . avy-goto-line)
 	 ("C-'" . avy-goto-word-0)))
 
+(use-package c++-mode
+  :ensure t
+  :defer t
+  :mode "\\.cpp.inc$")
+
 (use-package cider
   :ensure t
   :pin melpa-stable)
@@ -114,6 +119,11 @@
 	company-begin-commands '(self-insert-command)
 	company-show-numbers t)
   :diminish company-mode)
+
+(use-package company-c-headers
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-c-headers))
 
 (use-package elpy
   :ensure t
