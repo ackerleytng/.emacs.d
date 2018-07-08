@@ -217,7 +217,7 @@
 
 (use-package paredit
   :ensure t
-  :hook ((lisp-mode emacs-lisp-mode clojure-mode) . paredit-mode)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode) . paredit-mode)
   :diminish paredit-mode)
 
 (use-package paren
