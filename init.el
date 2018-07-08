@@ -206,7 +206,9 @@
   :bind (("C-x g" . magit-status)))
 
 (use-package material-theme
-  :ensure t)
+  :ensure t
+  :config
+  (load-theme 'material t))
 
 (use-package multiple-cursors
   :ensure t
