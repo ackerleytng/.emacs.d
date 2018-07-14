@@ -254,7 +254,8 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package restclient
-  :ensure t)
+  :ensure t
+  :mode "\\.http\\'")
 
 (use-package slime
   :ensure t
