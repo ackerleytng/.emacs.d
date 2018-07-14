@@ -117,8 +117,15 @@
 
 (use-package company-c-headers
   :ensure t
+  :after company
   :config
   (add-to-list 'company-backends 'company-c-headers))
+
+(use-package company-restclient
+  :ensure t
+  :after (company restclient)
+  :config
+  (add-to-list 'company-backends 'company-restclient))
 
 (use-package elpy
   :ensure t
@@ -245,6 +252,9 @@
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package restclient
+  :ensure t)
 
 (use-package slime
   :ensure t
