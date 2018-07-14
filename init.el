@@ -183,7 +183,7 @@
   :hook ((dired-mode
 	  eshell-mode
 	  c-mode c++-mode
-	  java-mode asm-mode) . helm-gtags)
+	  java-mode asm-mode) . helm-gtags-mode)
   :bind (:map helm-gtags-mode-map
 	      ("M-." . helm-gtags-dwim)
 	      ("M-," . helm-gtags-pop-stack)))
