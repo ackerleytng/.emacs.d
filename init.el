@@ -266,6 +266,9 @@
   :config
   (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
+(use-package yaml-mode
+  :ensure t)
+
 ;;------------------------------------------------------------------------
 ;; Useful little functions
 ;;------------------------------------------------------------------------
