@@ -95,11 +95,6 @@
 	 ("M-g g" . avy-goto-line)
 	 ("C-'" . avy-goto-word-0)))
 
-(use-package c++-mode
-  :ensure t
-  :defer t
-  :mode "\\.cpp.inc$")
-
 (use-package cider
   :ensure t
   :pin melpa-stable)
