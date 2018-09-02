@@ -147,6 +147,10 @@
   :config
   (exec-path-from-shell-initialize))
 
+(use-package graphql-mode
+  :ensure t
+  :mode (("\\.graphql$" . graphql-mode)))
+
 (use-package helm
   :ensure t
   :defer t
