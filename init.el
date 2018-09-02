@@ -160,7 +160,6 @@
          ("C-x b"   . helm-mini)
          :map helm-map
          ("<tab>" . helm-execute-persistent-action)
-         ("C-i"   . helm-execute-persistent-action)
          ("C-z"   . helm-select-action))
   :config
   (helm-autoresize-mode t)
@@ -194,7 +193,6 @@
         helm-gtags-auto-update t
         helm-gtags-use-input-at-cursor t
         helm-gtags-pulse-at-cursor t
-        helm-gtags-prefix-key "\C-cg"
         helm-gtags-suggested-key-mapping t)
   :hook ((dired-mode
 	  eshell-mode
