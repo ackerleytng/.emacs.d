@@ -127,6 +127,11 @@
   :config
   (add-to-list 'company-backends 'company-restclient))
 
+(use-package css-mode
+  :mode "\\.css\\'"
+  :config
+  (setq css-indent-offset 2))
+
 (use-package elpy
   :ensure t
   :config
