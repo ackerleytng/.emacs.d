@@ -74,9 +74,9 @@
       version-control t
       delete-old-versions t
       kept-new-versions 20
-      kept-old-versions 5
-      ;; Tabs
-      indent-tabs-mode nil)
+      kept-old-versions 5)
+
+(setq-default indent-tabs-mode nil)
 
 (fset `yes-or-no-p `y-or-n-p)
 
