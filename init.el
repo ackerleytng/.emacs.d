@@ -264,7 +264,7 @@
 
 (use-package restclient
   :ensure t
-  :mode "\\.http\\'")
+  :mode ("\\.http\\'" . restclient-mode))
 
 (use-package slime
   :ensure t
