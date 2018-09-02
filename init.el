@@ -249,7 +249,9 @@
 (use-package projectile
   :ensure t
   :config
-  (projectile-global-mode 1))
+  (projectile-mode +1)
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
 
 (use-package python
   :ensure t
