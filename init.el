@@ -85,6 +85,11 @@
 ;; Packages
 ;;------------------------------------------------------------------------
 
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window))
+  :init (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+
 (use-package aggressive-indent
   :ensure t
   :hook ((lisp-mode emacs-lisp-mode clojure-mode) . aggressive-indent-mode)
@@ -281,10 +286,16 @@
   :config
   (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
-(use-package ace-window
-  :ensure t
-  :bind (("M-o" . ace-window))
-  :init (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+(use-package web-mode
+  :mode ("\\.html$" . web-mode)
+  :init
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq js-indent-level 2)
+  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-enable-auto-expanding t)
+  (setq web-mode-enable-css-colorization t))
 
 (use-package yaml-mode
   :ensure t)
