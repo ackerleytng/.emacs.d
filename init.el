@@ -77,6 +77,7 @@
       kept-old-versions 5)
 
 (setq-default indent-tabs-mode nil)
+(setq-default fill-column 79)
 
 (fset `yes-or-no-p `y-or-n-p)
 
