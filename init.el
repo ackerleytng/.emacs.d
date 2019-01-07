@@ -133,6 +133,10 @@
   :config
   (setq css-indent-offset 2))
 
+(use-package electric-pair
+  :ensure t
+  :hook (prog-mode . electric-pair-mode))
+
 (use-package elpy
   :ensure t
   :config
