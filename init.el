@@ -92,7 +92,7 @@
 
 (use-package aggressive-indent
   :ensure t
-  :hook ((lisp-mode emacs-lisp-mode clojure-mode) . aggressive-indent-mode)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode scheme-mode) . aggressive-indent-mode)
   :diminish aggressive-indent-mode)
 
 (use-package avy
@@ -159,6 +159,9 @@
 (use-package graphql-mode
   :ensure t
   :mode (("\\.graphql$" . graphql-mode)))
+
+(use-package geiser
+  :ensure t)
 
 (use-package helm
   :ensure t
@@ -247,7 +250,7 @@
 
 (use-package paredit
   :ensure t
-  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode) . paredit-mode)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) . paredit-mode)
   :diminish paredit-mode)
 
 (use-package paren
