@@ -268,7 +268,8 @@
 (use-package python
   :ensure t
   :config
-  (setq python-indent-offset 4))
+  (setq python-indent-offset 4)
+  (add-hook 'after-save-hook 'delete-trailing-whitespace))
 
 (use-package pyenv-mode
   :ensure t
