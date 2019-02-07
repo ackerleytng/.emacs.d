@@ -143,8 +143,8 @@
 
 (use-package elpy
   :ensure t
-  :config
-  (elpy-enable))
+  :commands (elpy-enable)
+  :init (with-eval-after-load 'python (elpy-enable)))
 
 (use-package erc
   :ensure t
@@ -269,6 +269,22 @@
   :ensure t
   :config
   (setq python-indent-offset 4))
+
+(use-package pyenv-mode
+  :ensure t
+  :config
+  (defun projectile-pyenv-mode-set ()
+    "Set pyenv version matching project name."
+    (let ((project (projectile-project-name)))
+      (if (member project (pyenv-mode-versions))
+          (pyenv-mode-set project)
+        (pyenv-mode-unset))))
+
+  (add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
+  (add-hook 'python-mode-hook 'pyenv-mode))
+
+(use-package pyenv-mode-auto
+  :ensure t)
 
 (use-package rainbow-delimiters
   :ensure t
