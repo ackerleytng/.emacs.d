@@ -303,6 +303,7 @@
   (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
 (use-package web-mode
+  :ensure t
   :mode ("\\.html$" . web-mode)
   :init
   (setq web-mode-markup-indent-offset 2)
