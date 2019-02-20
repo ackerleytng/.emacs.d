@@ -109,7 +109,7 @@
   :ensure t
   :mode (("\\.edn$" . clojure-mode)))
 
-(use-package company               
+(use-package company
   :ensure t
   :defer t
   :config
@@ -305,7 +305,9 @@
   (setq inferior-lisp-program "sbcl"
         slime-contribs '(slime-fancy))
   :config
-  (load (expand-file-name "~/quicklisp/slime-helper.el")))
+  (let ((slime-helper-file "~/quicklisp/slime-helper.el"))
+    (and (file-exists-p slime-helper-file)
+         (load (expand-file-name slime-helper-file)))))
 
 (use-package web-mode
   :ensure t
