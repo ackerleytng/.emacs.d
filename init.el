@@ -292,6 +292,11 @@
   :ensure t
   :mode ("\\.http\\'" . restclient-mode))
 
+(use-package rjsx-mode
+  :ensure t
+  :mode "\\.jsx?\\'"
+  :interpreter "node")
+
 (use-package slime
   :ensure t
   :if (executable-find "sbcl")
