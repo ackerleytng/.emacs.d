@@ -67,9 +67,8 @@
 ;; Settings
 ;;------------------------------------------------------------------------
 
-(setq inhibit-x-resources t
-      ;; Backup stuff
-      backup-directory-alist `(("." . ,backup-directory))
+;; Backup stuff
+(setq backup-directory-alist `(("." . ,backup-directory))
       backup-by-copying t
       version-control t
       delete-old-versions t
