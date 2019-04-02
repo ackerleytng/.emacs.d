@@ -251,6 +251,25 @@
   :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) . paredit-mode)
   :diminish paredit-mode)
 
+(use-package paxedit
+  :ensure t
+  :after (paredit)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) . paxedit-mode)
+  :diminish paxedit-mode
+  :bind (("M-<right>" . paxedit-transpose-forward)
+         ("M-<left>"  . paxedit-transpose-backward)
+         ("M-<up>"    . paxedit-backward-up)
+         ("M-<down>"  . paxedit-backward-end)
+         ("M-b"       . paxedit-previous-symbol)
+         ("M-f"       . paxedit-next-symbol)
+         ("C-%"       . paxedit-copy)
+         ("C-&"       . paxedit-kill)
+         ("C-*"       . paxedit-delete)
+         ("C-^"       . paxedit-sexp-raise)
+         ("M-u"       . paxedit-symbol-change-case)
+         ("C-@"       . paxedit-symbol-copy)
+         ("C-#"       . paxedit-symbol-kill)))
+
 (use-package paren
   :ensure t
   :config
