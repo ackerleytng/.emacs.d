@@ -228,8 +228,10 @@
          ("\\.jsx\\'" . js2-jsx-mode))
   :config
   (setq js2-basic-offset 2
-	js2-strict-missing-semi-warning nil
-	js2-missing-semi-one-line-override nil))
+        js-switch-indent-offset 2
+        js2-indent-switch-body t
+        js2-strict-missing-semi-warning nil
+        js2-missing-semi-one-line-override nil))
 
 (use-package magit
   :ensure t
