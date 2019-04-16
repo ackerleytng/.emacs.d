@@ -172,9 +172,6 @@
          ("<tab>" . helm-execute-persistent-action)
          ("C-z"   . helm-select-action))
   :config
-  (helm-autoresize-mode t)
-  (setq helm-autoresize-max-height 70
-        helm-autoresize-min-height 20)
   (setq helm-M-x-fuzzy-match t
         helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match t
