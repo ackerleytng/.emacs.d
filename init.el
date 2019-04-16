@@ -87,7 +87,7 @@
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window))
-  :init (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  :config (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package aggressive-indent
   :ensure t
@@ -191,13 +191,13 @@
   :ensure t
   :after helm
   :bind ("C-h b" . helm-descbinds)
-  :init
+  :config
   (fset 'describe-bindings 'helm-descbinds))
 
 (use-package helm-gtags
   :ensure t
   :if (executable-find "global")
-  :init
+  :config
   (setq helm-gtags-ignore-case t
         helm-gtags-auto-update t
         helm-gtags-use-input-at-cursor t
@@ -323,9 +323,9 @@
   :if (executable-find "sbcl")
   :commands slime
   :init
-  (setq inferior-lisp-program "sbcl"
-        slime-contribs '(slime-fancy))
+  (setq inferior-lisp-program "sbcl")
   :config
+  (setq slime-contribs '(slime-fancy))
   (let ((slime-helper-file "~/quicklisp/slime-helper.el"))
     (and (file-exists-p slime-helper-file)
          (load (expand-file-name slime-helper-file)))))
@@ -333,7 +333,7 @@
 (use-package web-mode
   :ensure t
   :mode ("\\.html$" . web-mode)
-  :init
+  :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
