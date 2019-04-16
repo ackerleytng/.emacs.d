@@ -276,6 +276,7 @@
   :ensure t
   :config
   (projectile-mode +1)
+  (setq projectile-enable-caching t)
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
