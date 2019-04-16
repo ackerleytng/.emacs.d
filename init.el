@@ -259,8 +259,6 @@
          ("M-<left>"  . paxedit-transpose-backward)
          ("M-<up>"    . paxedit-backward-up)
          ("M-<down>"  . paxedit-backward-end)
-         ("M-b"       . paxedit-previous-symbol)
-         ("M-f"       . paxedit-next-symbol)
          ("C-%"       . paxedit-copy)
          ("C-&"       . paxedit-kill)
          ("C-*"       . paxedit-delete)
