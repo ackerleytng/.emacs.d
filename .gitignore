@@ -22,3 +22,5 @@ tramp
 custom.el
 .mc-lists.el
 .python-environments/
+transient/
+projectile.cache
