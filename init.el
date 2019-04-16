@@ -140,8 +140,9 @@
 
 (use-package elpy
   :ensure t
-  :commands (elpy-enable)
-  :init (with-eval-after-load 'python (elpy-enable)))
+  :commands elpy-enable
+  :hook ((python-mode . elpy-enable)
+         (python-mode . elpy-mode)))
 
 (use-package erc
   :ensure t
@@ -287,7 +288,8 @@
   :ensure t
   :config
   (setq python-indent-offset 4)
-  (add-hook 'after-save-hook 'delete-trailing-whitespace))
+  :hook
+  (after-save . delete-trailing-whitespace))
 
 (use-package pyenv-mode
   :ensure t
@@ -298,9 +300,8 @@
       (if (member project (pyenv-mode-versions))
           (pyenv-mode-set project)
         (pyenv-mode-unset))))
-
-  (add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
-  (add-hook 'python-mode-hook 'pyenv-mode))
+  :hook ((projectile-switch-project . projectile-pyenv-mode-set)
+         (python-mode . pyenv-mode)))
 
 (use-package pyenv-mode-auto
   :ensure t)
