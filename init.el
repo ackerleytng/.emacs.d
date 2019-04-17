@@ -180,6 +180,7 @@
 (use-package helm-ag
   :if (executable-find "ag")
   :ensure t
+  :after helm
   :commands (helm-ag helm-projectile-ag)
   :config
   (setq helm-ag-insert-at-point 'symbol
@@ -194,6 +195,7 @@
 
 (use-package helm-gtags
   :ensure t
+  :after helm
   :if (executable-find "global")
   :config
   (setq helm-gtags-ignore-case t
