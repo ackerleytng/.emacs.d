@@ -339,6 +339,12 @@
   (setq web-mode-enable-auto-expanding t)
   (setq web-mode-enable-css-colorization t))
 
+(use-package wgrep-ag
+  :ensure t)
+
+(use-package wgrep-mode
+  :ensure t)
+
 (use-package yaml-mode
   :ensure t)
 
