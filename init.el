@@ -344,7 +344,7 @@
 (use-package wgrep-ag
   :ensure t)
 
-(use-package wgrep-mode
+(use-package wgrep
   :ensure t)
 
 (use-package yaml-mode
