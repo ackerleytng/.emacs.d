@@ -194,9 +194,9 @@
   (fset 'describe-bindings 'helm-descbinds))
 
 (use-package helm-gtags
+  :if (executable-find "global")
   :ensure t
   :after helm
-  :if (executable-find "global")
   :config
   (setq helm-gtags-ignore-case t
         helm-gtags-auto-update t
@@ -215,6 +215,11 @@
   :ensure t
   :after (projectile helm)
   :config (helm-projectile-on))
+
+(use-package helm-rg
+  :if (executable-find "rg")
+  :ensure t
+  :after helm)
 
 (use-package helm-swoop
   :ensure t
@@ -318,8 +323,8 @@
   :interpreter "node")
 
 (use-package slime
-  :ensure t
   :if (executable-find "sbcl")
+  :ensure t
   :commands slime
   :init
   (setq inferior-lisp-program "sbcl")
@@ -342,6 +347,7 @@
   (setq web-mode-enable-css-colorization t))
 
 (use-package wgrep-ag
+  :if (executable-find "ag")
   :ensure t)
 
 (use-package wgrep
