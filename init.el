@@ -277,7 +277,7 @@
          ("C-#"       . paxedit-symbol-kill)))
 
 (use-package paren
-  :ensure t
+  :ensure nil
   :config
   (show-paren-mode 1))
 
@@ -290,7 +290,7 @@
   ("C-c p" . projectile-command-map))
 
 (use-package python
-  :ensure t
+  :ensure nil
   :config
   (setq python-indent-offset 4)
   :hook
