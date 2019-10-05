@@ -24,3 +24,4 @@ custom.el
 .python-environments/
 transient/
 projectile.cache
+elpy/
