@@ -149,7 +149,6 @@
   :commands (erc erc-tls))
 
 (use-package exec-path-from-shell
-  :if is-mac
   :ensure t
   :config
   (exec-path-from-shell-initialize))
