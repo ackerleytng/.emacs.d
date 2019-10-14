@@ -254,6 +254,11 @@
   :bind (("C->" . mc/mark-next-like-this)
 	 ("C-<" . mc/mark-previous-like-this)))
 
+(use-package org
+  :ensure nil
+  :config
+  (setq org-src-preserve-indentation t))
+
 (use-package paredit
   :ensure t
   :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) . paredit-mode)
