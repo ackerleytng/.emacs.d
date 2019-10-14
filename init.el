@@ -286,6 +286,13 @@
   :config
   (show-paren-mode 1))
 
+(use-package pdf-tools
+  :ensure t
+  :load-path "site-lisp/pdf-tools/lisp"
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (pdf-tools-install :no-query))
+
 (use-package projectile
   :ensure t
   :config
