@@ -254,6 +254,9 @@
   :bind (("C->" . mc/mark-next-like-this)
 	 ("C-<" . mc/mark-previous-like-this)))
 
+(use-package nginx-mode
+  :ensure t)
+
 (use-package org
   :ensure nil
   :config
