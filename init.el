@@ -362,8 +362,8 @@
   :init
   (setq inferior-lisp-program "sbcl")
   :config
-  (setq slime-contribs '(slime-fancy))
-  (let ((slime-helper-file "~/quicklisp/slime-helper.el"))
+  (setq slime-contribs '(slime-fancy slime-asdf))
+  (let ((slime-helper-file "~/.quicklisp/slime-helper.el"))
     (and (file-exists-p slime-helper-file)
          (load (expand-file-name slime-helper-file)))))
 
