@@ -228,6 +228,9 @@
   :after helm
   :bind ("C-c h o" . helm-multi-swoop-all))
 
+(use-package htmlize
+  :ensure t)
+
 (use-package js2-mode
   :ensure t
   :mode (("\\.js\\'" . js2-mode)
@@ -260,7 +263,20 @@
 (use-package org
   :ensure nil
   :config
-  (setq org-src-preserve-indentation t))
+  (setq org-src-preserve-indentation t)
+  (plist-put org-format-latex-options :scale 2))
+
+(use-package ox-reveal
+  :ensure t
+  :config
+  (defun toggle-org-html-export-on-save ()
+    (interactive)
+    (if (memq 'org-reveal-export-to-html after-save-hook)
+        (progn
+          (remove-hook 'after-save-hook 'org-reveal-export-to-html t)
+          (message "Disabled org html export on save for current buffer..."))
+      (add-hook 'after-save-hook 'org-reveal-export-to-html nil t)
+      (message "Enabled org html export on save for current buffer..."))))
 
 (use-package paredit
   :ensure t
