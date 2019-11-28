@@ -127,6 +127,9 @@
   :config
   (add-to-list 'company-backends 'company-c-headers))
 
+(use-package company-lsp
+  :ensure t)
+
 (use-package company-restclient
   :ensure t
   :after (company restclient)
@@ -152,6 +155,9 @@
   :ensure t
   :config
   (exec-path-from-shell-initialize))
+
+(use-package flycheck
+  :init (global-flycheck-mode))
 
 (use-package geiser
   :ensure t)
@@ -242,6 +248,15 @@
         js2-indent-switch-body t
         js2-strict-missing-semi-warning nil
         js2-missing-semi-one-line-override nil))
+
+(use-package lsp-mode
+  :ensure t
+  ;; Optional - enable lsp-mode automatically in scala files
+  :hook (scala-mode . lsp)
+  :config (setq lsp-prefer-flymake nil))
+
+(use-package lsp-ui
+  :ensure t)
 
 (use-package magit
   :ensure t
@@ -355,6 +370,23 @@
   :mode "\\.jsx?\\'"
   :interpreter "node")
 
+(use-package sbt-mode
+  :ensure t
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+  ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+  (setq sbt:program-options '("-Dsbt.supershell=false")))
+
+(use-package scala-mode
+  :ensure t
+  :mode "\\.s\\(cala\\|bt\\)$")
+
 (use-package slime
   :if (executable-find "sbcl")
   :ensure t
@@ -387,6 +419,9 @@
   :ensure t)
 
 (use-package yaml-mode
+  :ensure t)
+
+(use-package yasnippet
   :ensure t)
 
 ;;------------------------------------------------------------------------
