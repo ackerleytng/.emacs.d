@@ -136,6 +136,12 @@
   :config
   (add-to-list 'company-backends 'company-restclient))
 
+(use-package company-lsp
+  :ensure t
+  :after (company lsp-mode)
+  :config
+  (add-to-list 'company-backends 'company-lsp))
+
 (use-package css-mode
   :mode "\\.css\\'"
   :config
@@ -145,7 +151,9 @@
   :ensure t
   :commands elpy-enable
   :hook ((python-mode . elpy-enable)
-         (python-mode . elpy-mode)))
+         (python-mode . elpy-mode))
+  :config
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
 
 (use-package erc
   :ensure t
@@ -157,6 +165,7 @@
   (exec-path-from-shell-initialize))
 
 (use-package flycheck
+  :ensure t
   :init (global-flycheck-mode))
 
 (use-package geiser
@@ -251,7 +260,8 @@
 
 (use-package lsp-mode
   :ensure t
-  ;; Optional - enable lsp-mode automatically in scala files
+  :ensure t
+  :commands lsp
   :hook (scala-mode . lsp)
   :config (setq lsp-prefer-flymake nil))
 
