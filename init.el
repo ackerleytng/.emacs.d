@@ -201,7 +201,7 @@
   :commands (helm-ag helm-projectile-ag)
   :config
   (setq helm-ag-insert-at-point 'symbol
-	helm-ag-command-option "--path-to-ignore ~/.agignore"))
+        helm-ag-use-agignore t))
 
 (use-package helm-descbinds
   :ensure t
