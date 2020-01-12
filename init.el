@@ -147,6 +147,10 @@
   :config
   (setq css-indent-offset 2))
 
+(use-package djvu
+  :if (executable-find "djvused")
+  :ensure t)
+
 (use-package elpy
   :ensure t
   :commands elpy-enable
