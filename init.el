@@ -128,7 +128,10 @@
   (add-to-list 'company-backends 'company-c-headers))
 
 (use-package company-lsp
-  :ensure t)
+  :ensure t
+  :after (company lsp-mode)
+  :config
+  (add-to-list 'company-backends 'company-lsp))
 
 (use-package company-restclient
   :ensure t
@@ -136,16 +139,18 @@
   :config
   (add-to-list 'company-backends 'company-restclient))
 
-(use-package company-lsp
-  :ensure t
-  :after (company lsp-mode)
-  :config
-  (add-to-list 'company-backends 'company-lsp))
-
 (use-package css-mode
   :mode "\\.css\\'"
   :config
   (setq css-indent-offset 2))
+
+(use-package dap-mode
+  :ensure t
+  :after lsp-mode
+  :config
+  (require 'dap-java)
+  (dap-mode t)
+  (dap-ui-mode t))
 
 (use-package djvu
   :if (executable-find "djvused")
@@ -259,7 +264,6 @@
   :ensure t
   :mode (("\\.js\\'" . js2-mode)
          ("\\.js.erb\\'" . js2-mode)
-         ("\\.json\\'" . js2-mode)
          ("\\.jsx\\'" . js2-jsx-mode))
   :config
   (setq js2-basic-offset 2
@@ -268,15 +272,23 @@
         js2-strict-missing-semi-warning nil
         js2-missing-semi-one-line-override nil))
 
+(use-package json-mode
+  :ensure t
+  :mode (("\\.json\\'" . json-mode)))
+
+(use-package lsp-java
+  :ensure t
+  :after lsp-mode)
+
 (use-package lsp-mode
   :ensure t
-  :ensure t
   :commands lsp
-  :hook (scala-mode . lsp)
-  :config (setq lsp-prefer-flymake nil))
+  :hook (((scala-mode java-mode) . lsp))
+  :init (setq lsp-keymap-prefix "s-o"))
 
 (use-package lsp-ui
-  :ensure t)
+  :ensure t
+  :after lsp-mode)
 
 (use-package magit
   :ensure t
