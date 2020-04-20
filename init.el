@@ -441,7 +441,15 @@
   :ensure t)
 
 (use-package yasnippet
-  :ensure t)
+  :ensure t
+  :diminish yas-minor-mode
+  :init
+  (yas-global-mode t))
+
+(use-package yasnippet-snippets
+  :ensure t
+  :after yasnippet
+  :config (yasnippet-snippets-initialize))
 
 ;;------------------------------------------------------------------------
 ;; Useful little functions
