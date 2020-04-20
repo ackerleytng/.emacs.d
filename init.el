@@ -331,7 +331,6 @@
          ("C-&"       . paxedit-kill)
          ("C-*"       . paxedit-delete)
          ("C-^"       . paxedit-sexp-raise)
-         ("M-u"       . paxedit-symbol-change-case)
          ("C-@"       . paxedit-symbol-copy)
          ("C-#"       . paxedit-symbol-kill)))
 
