@@ -182,6 +182,11 @@
   :ensure t
   :mode (("\\.graphql$" . graphql-mode)))
 
+(use-package groovy-mode
+  :ensure t
+  :mode (("\\.groovy$" . groovy-mode)
+         ("\\.gradle$" . groovy-mode)))
+
 (use-package helm
   :ensure t
   :defer t
