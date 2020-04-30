@@ -111,7 +111,6 @@
 
 (use-package company
   :ensure t
-  :defer t
   :config
   (global-company-mode)
   (setq company-idle-delay 0.15
@@ -202,7 +201,6 @@
 
 (use-package helm
   :ensure t
-  :defer t
   :bind (("M-x"     . helm-M-x)
          ("C-x C-f" . helm-find-files)
          ("M-y"     . helm-show-kill-ring)
@@ -321,7 +319,8 @@
 (use-package org
   :ensure nil
   :config
-  (setq org-src-preserve-indentation t)
+  (setq org-src-preserve-indentation t
+        org-src-tab-acts-natively t)
   (plist-put org-format-latex-options :scale 2))
 
 (use-package ox-reveal
