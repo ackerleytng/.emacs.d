@@ -187,6 +187,14 @@
   :ensure t
   :mode (("\\.graphql$" . graphql-mode)))
 
+(use-package graphviz-dot-mode
+  :ensure t
+  :config
+  (setq graphviz-dot-indent-width 4
+        graphviz-dot-preview-extension "svg")
+  :init
+  (use-package company-graphviz-dot))
+
 (use-package groovy-mode
   :ensure t
   :mode (("\\.groovy$" . groovy-mode)
