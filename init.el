@@ -290,6 +290,9 @@
   :ensure t
   :after lsp-mode)
 
+(use-package lua-mode
+  :ensure t)
+
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
