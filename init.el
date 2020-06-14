@@ -113,11 +113,13 @@
   :ensure t
   :config
   (global-company-mode)
-  (setq company-idle-delay 0.15
-	company-tooltip-limit 20
-	company-echo-delay 0
-	company-begin-commands '(self-insert-command)
-	company-show-numbers t)
+  (setq
+   company-minimum-prefix-length 1
+   company-idle-delay 0.0
+   company-tooltip-limit 20
+   company-echo-delay 0
+   company-begin-commands '(self-insert-command)
+   company-show-numbers t)
   :diminish company-mode)
 
 (use-package company-c-headers
@@ -145,11 +147,11 @@
 
 (use-package dap-mode
   :ensure t
-  :after lsp-mode
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode)
   :config
-  (require 'dap-java)
-  (dap-mode t)
-  (dap-ui-mode t))
+  (require 'dap-java))
 
 (use-package djvu
   :if (executable-find "djvused")
@@ -248,6 +250,11 @@
 	      ("M-." . helm-gtags-dwim)
 	      ("M-," . helm-gtags-pop-stack)))
 
+(use-package helm-lsp
+  :ensure t
+  :after (helm lsp-mode)
+  :commands helm-lsp-workspace-symbol)
+
 (use-package helm-projectile
   :ensure t
   :after (projectile helm)
@@ -289,8 +296,22 @@
 (use-package lsp-mode
   :ensure t
   :commands lsp
-  :hook (((scala-mode java-mode) . lsp))
-  :init (setq lsp-keymap-prefix "s-o"))
+  :hook ((scala-mode . lsp)
+         (lsp-mode . lsp-lens-mode)
+         (java-mode . lsp))
+  :init (setq
+         lsp-log-io nil
+         lsp-print-performance nil
+         lsp-keymap-prefix "C-c l"
+         read-process-output-max (* 1024 1024)
+         gc-cons-threshold 100000000))
+
+(use-package lsp-treemacs
+  :ensure t
+  :config
+  (lsp-metals-treeview-enable t)
+  ;; (setq lsp-metals-treeview-show-when-views-received t)
+  )
 
 (use-package lsp-ui
   :ensure t
@@ -361,6 +382,9 @@
   :config
   (show-paren-mode 1))
 
+(use-package posframe
+  :ensure t)
+
 (use-package projectile
   :ensure t
   :config
@@ -419,7 +443,7 @@
 
 (use-package scala-mode
   :ensure t
-  :mode "\\.s\\(cala\\|bt\\)$")
+  :mode "\\.s\\(c\\|cala\\|bt\\)$")
 
 (use-package slime
   :if (executable-find "sbcl")
