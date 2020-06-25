@@ -393,6 +393,9 @@
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
+(use-package posframe
+  :ensure t)
+
 (use-package python
   :ensure nil
   :config
