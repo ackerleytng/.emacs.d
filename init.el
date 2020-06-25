@@ -118,9 +118,8 @@
   (global-company-mode)
   (setq
    company-minimum-prefix-length 1
-   company-idle-delay 0.0
+   company-idle-delay 0.1
    company-tooltip-limit 20
-   company-echo-delay 0
    company-begin-commands '(self-insert-command)
    company-show-numbers t)
   :diminish company-mode)
@@ -245,7 +244,7 @@
         helm-gtags-suggested-key-mapping t)
   :hook ((dired-mode
 	  eshell-mode
-	  c-mode c++-mode
+	  c-mode
 	  java-mode asm-mode) . helm-gtags-mode)
   :bind (:map helm-gtags-mode-map
 	      ("M-." . helm-gtags-dwim)
@@ -298,6 +297,7 @@
   :commands lsp
   :hook ((scala-mode . lsp)
          (java-mode . lsp)
+         (c++-mode . lsp)
          (lsp-mode . lsp-lens-mode))
   :config
   (setq lsp-log-io nil
