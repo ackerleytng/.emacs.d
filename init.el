@@ -87,11 +87,14 @@
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window))
-  :config (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+        aw-scope 'frame))
 
 (use-package aggressive-indent
   :ensure t
-  :hook ((lisp-mode emacs-lisp-mode clojure-mode scheme-mode) . aggressive-indent-mode)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode scheme-mode) .
+         aggressive-indent-mode)
   :diminish aggressive-indent-mode)
 
 (use-package avy
@@ -149,9 +152,7 @@
   :ensure t
   :hook
   (lsp-mode . dap-mode)
-  (lsp-mode . dap-ui-mode)
-  :config
-  (require 'dap-java))
+  (lsp-mode . dap-ui-mode))
 
 (use-package djvu
   :if (executable-find "djvused")
@@ -211,10 +212,10 @@
          ("<tab>" . helm-execute-persistent-action)
          ("C-z"   . helm-select-action))
   :config
-  (setq helm-M-x-fuzzy-match t
-        helm-buffers-fuzzy-matching t
-        helm-recentf-fuzzy-match t
-        helm-split-window-in-side-p t))
+  (setq
+   completion-styles (if (version<= emacs-version "27.0")
+                         '(helm-flex) '(flex))
+   helm-split-window-inside-p t))
 
 (use-package helm-ag
   :if (executable-find "ag")
@@ -281,7 +282,6 @@
   :config
   (setq js2-basic-offset 2
         js-switch-indent-offset 2
-        js2-indent-switch-body t
         js2-strict-missing-semi-warning nil
         js2-missing-semi-one-line-override nil))
 
@@ -297,21 +297,18 @@
   :ensure t
   :commands lsp
   :hook ((scala-mode . lsp)
-         (lsp-mode . lsp-lens-mode)
-         (java-mode . lsp))
-  :init (setq
-         lsp-log-io nil
-         lsp-print-performance nil
-         lsp-keymap-prefix "C-c l"
-         read-process-output-max (* 1024 1024)
-         gc-cons-threshold 100000000))
+         (java-mode . lsp)
+         (lsp-mode . lsp-lens-mode))
+  :config
+  (setq lsp-log-io nil
+        lsp-print-performance nil
+        lsp-keymap-prefix "C-c l"
+        gc-cons-threshold 100000000)
+  (unless (version<= emacs-version "27.0")
+    (setq read-process-output-max (* 1024 1024))))
 
 (use-package lsp-treemacs
-  :ensure t
-  :config
-  (lsp-metals-treeview-enable t)
-  ;; (setq lsp-metals-treeview-show-when-views-received t)
-  )
+  :ensure t)
 
 (use-package lsp-ui
   :ensure t
@@ -358,13 +355,15 @@
 
 (use-package paredit
   :ensure t
-  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) . paredit-mode)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) .
+         paredit-mode)
   :diminish paredit-mode)
 
 (use-package paxedit
   :ensure t
   :after (paredit)
-  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) . paxedit-mode)
+  :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) .
+         paxedit-mode)
   :diminish paxedit-mode
   :bind (("M-<right>" . paxedit-transpose-forward)
          ("M-<left>"  . paxedit-transpose-backward)
