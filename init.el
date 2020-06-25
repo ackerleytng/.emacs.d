@@ -422,6 +422,9 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package rego-mode
+  :ensure t)
+
 (use-package restclient
   :ensure t
   :mode ("\\.http\\'" . restclient-mode))
