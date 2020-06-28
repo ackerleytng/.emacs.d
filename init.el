@@ -184,6 +184,10 @@
 (use-package go-mode
   :ensure t)
 
+(use-package google-c-style
+  :ensure t
+  :hook (c-mode-common . google-set-c-style))
+
 (use-package graphql-mode
   :ensure t
   :mode (("\\.graphql$" . graphql-mode)))
