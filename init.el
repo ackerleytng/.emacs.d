@@ -312,7 +312,9 @@
 
 (use-package lsp-ui
   :ensure t
-  :after lsp-mode)
+  :after lsp-mode
+  :config
+  (setq lsp-ui-doc-enable nil))
 
 (use-package lua-mode
   :ensure t)
