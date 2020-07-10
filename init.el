@@ -39,8 +39,10 @@
 (add-hook 'after-init-hook
           `(lambda ()
              (setq file-name-handler-alist file-name-handler-alist-old
-                   gc-cons-threshold 800000
+                   gc-cons-threshold 100000000
                    gc-cons-percentage 0.1)
+             (unless (version<= emacs-version "27.0")
+               (setq read-process-output-max (* 1024 1024)))
              (garbage-collect)) t)
 
 ;;------------------------------------------------------------------------
@@ -129,12 +131,6 @@
   :after company
   :config
   (add-to-list 'company-backends 'company-c-headers))
-
-(use-package company-lsp
-  :ensure t
-  :after (company lsp-mode)
-  :config
-  (add-to-list 'company-backends 'company-lsp))
 
 (use-package company-restclient
   :ensure t
@@ -299,6 +295,7 @@
 (use-package lsp-mode
   :ensure t
   :commands lsp
+  :init (setq lsp-keymap-prefix "C-c l")
   :hook ((scala-mode . lsp)
          (java-mode . lsp)
          (c++-mode . lsp)
@@ -307,16 +304,16 @@
   (setq lsp-log-io nil
         lsp-print-performance nil
         lsp-keymap-prefix "C-c l"
-        gc-cons-threshold 100000000)
-  (unless (version<= emacs-version "27.0")
-    (setq read-process-output-max (* 1024 1024))))
+        lsp-prefer-capf t))
 
 (use-package lsp-treemacs
-  :ensure t)
+  :ensure t
+  :commands lsp-treemacs-errors-list)
 
 (use-package lsp-ui
   :ensure t
   :after lsp-mode
+  :commands lsp-ui-mode
   :config
   (setq lsp-ui-doc-enable nil))
 
