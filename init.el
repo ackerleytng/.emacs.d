@@ -75,7 +75,8 @@
       version-control t
       delete-old-versions t
       kept-new-versions 20
-      kept-old-versions 5)
+      kept-old-versions 5
+      ring-bell-function 'ignore)
 
 (setq-default indent-tabs-mode nil)
 (setq-default fill-column 79)
