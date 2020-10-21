@@ -179,7 +179,12 @@
   :ensure t)
 
 (use-package go-mode
-  :ensure t)
+  :ensure t
+  :config
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  :hook (go-mode . lsp-go-install-save-hooks))
 
 (use-package google-c-style
   :ensure t
@@ -295,17 +300,18 @@
 
 (use-package lsp-mode
   :ensure t
-  :commands lsp
+  :commands (lsp lsp-deferred)
   :init (setq lsp-keymap-prefix "C-c l")
   :hook ((scala-mode . lsp)
          (java-mode . lsp)
          (c++-mode . lsp)
+         (go-mode . lsp-deferred)
          (lsp-mode . lsp-lens-mode))
   :config
   (setq lsp-log-io nil
         lsp-print-performance nil
         lsp-keymap-prefix "C-c l"
-        lsp-prefer-capf t))
+        lsp-completion-provider :capf))
 
 (use-package lsp-treemacs
   :ensure t
@@ -491,8 +497,8 @@
 (use-package yasnippet
   :ensure t
   :diminish yas-minor-mode
-  :init
-  (yas-global-mode t))
+  :init (yas-global-mode t)
+  :hook (go-mode . yas-minor-mode))
 
 (use-package yasnippet-snippets
   :ensure t
