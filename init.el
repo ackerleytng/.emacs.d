@@ -96,6 +96,9 @@
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
         aw-scope 'frame))
 
+(use-package ag
+  :ensure t)
+
 (use-package aggressive-indent
   :ensure t
   :hook ((lisp-mode emacs-lisp-mode clojure-mode scheme-mode) .
