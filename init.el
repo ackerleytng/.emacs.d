@@ -306,16 +306,15 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :init (setq lsp-keymap-prefix "C-c l")
   :hook ((scala-mode . lsp)
          (java-mode . lsp)
          (c++-mode . lsp)
          (go-mode . lsp-deferred)
          (lsp-mode . lsp-lens-mode))
   :config
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (setq lsp-log-io nil
         lsp-print-performance nil
-        lsp-keymap-prefix "C-c l"
         lsp-completion-provider :capf))
 
 (use-package lsp-treemacs
