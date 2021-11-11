@@ -166,8 +166,10 @@
 
 (use-package exec-path-from-shell
   :ensure t
+  :init
+  (exec-path-from-shell-initialize)
   :config
-  (exec-path-from-shell-initialize))
+  (setq exec-path-from-shell-arguments nil))
 
 (use-package flycheck
   :ensure t
