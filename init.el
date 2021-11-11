@@ -114,8 +114,7 @@
 	 ("C-'" . avy-goto-word-0)))
 
 (use-package cider
-  :ensure t
-  :pin melpa-stable)
+  :ensure t)
 
 (use-package clojure-mode
   :ensure t
