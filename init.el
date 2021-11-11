@@ -159,14 +159,6 @@
   :if (executable-find "djvused")
   :ensure t)
 
-(use-package elpy
-  :ensure t
-  :commands elpy-enable
-  :hook ((python-mode . elpy-enable)
-         (python-mode . elpy-mode))
-  :config
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
-
 (use-package erc
   :ensure t
   :commands (erc erc-tls))
@@ -316,6 +308,12 @@
   (setq lsp-log-io nil
         lsp-print-performance nil
         lsp-completion-provider :capf))
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp-deferred))))
 
 (use-package lsp-treemacs
   :ensure t
