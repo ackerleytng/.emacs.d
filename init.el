@@ -365,6 +365,9 @@
       (add-hook 'after-save-hook 'org-reveal-export-to-html nil t)
       (message "Enabled org html export on save for current buffer..."))))
 
+(use-package package-utils
+  :ensure t)
+
 (use-package paredit
   :ensure t
   :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) .
