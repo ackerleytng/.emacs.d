@@ -128,10 +128,9 @@
   (global-company-mode)
   (setq
    company-minimum-prefix-length 1
-   company-idle-delay 0.1
    company-tooltip-limit 20
-   company-begin-commands '(self-insert-command)
-   company-show-numbers t)
+   company-show-quick-access t
+   company-selection-wrap-around t)
   :diminish company-mode)
 
 (use-package company-c-headers
