@@ -318,7 +318,9 @@
          (lsp-mode . lsp-lens-mode)
          (lsp-mode . lsp-enable-which-key-integration))
   :config
-  (setq lsp-log-io nil))
+  (setq lsp-log-io nil
+        lsp-signature-render-documentation nil))
+
 
 (use-package lsp-pyright
   :ensure t
