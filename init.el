@@ -252,7 +252,7 @@
   :hook ((dired-mode
 	  eshell-mode
 	  c-mode
-	  java-mode asm-mode) . helm-gtags-mode)
+          asm-mode) . helm-gtags-mode)
   :bind (:map helm-gtags-mode-map
 	      ("M-." . helm-gtags-dwim)
 	      ("M-," . helm-gtags-pop-stack)))
@@ -297,21 +297,26 @@
 
 (use-package lsp-java
   :ensure t
-  :after lsp-mode)
+  :after lsp-mode
+  :hook ((java-mode . lsp))
+  :config
+  (setq lsp-java-vmargs
+        (list
+         "-Xmx4G"
+         "-XX:+UseG1GC"
+         "-XX:+UseStringDeduplication")))
 
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
+  :init (setq lsp-keymap-prefix "C-c l")
   :hook ((scala-mode . lsp)
-         (java-mode . lsp)
          (c++-mode . lsp)
          (go-mode . lsp-deferred)
-         (lsp-mode . lsp-lens-mode))
+         (lsp-mode . lsp-lens-mode)
+         (lsp-mode . lsp-enable-which-key-integration))
   :config
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-  (setq lsp-log-io nil
-        lsp-print-performance nil
-        lsp-completion-provider :capf))
+  (setq lsp-log-io nil))
 
 (use-package lsp-pyright
   :ensure t
@@ -499,6 +504,13 @@
 
 (use-package wgrep
   :ensure t)
+
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :init (which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.05))
 
 (use-package yaml-mode
   :ensure t)
