@@ -2,7 +2,7 @@
 ;; Get info about environment
 ;;------------------------------------------------------------------------
 
-(defconst is-mac (memq window-system '(mac ns)))
+(defconst is-mac (eq system-type 'darwin))
 (defconst backup-directory (if is-mac "~/.Trash" "~/.saves"))
 
 ;;------------------------------------------------------------------------
@@ -15,12 +15,12 @@
   (scroll-bar-mode -1))
 (when (fboundp 'blink-cursor-mode)
   (blink-cursor-mode -1))
+(when (fboundp 'menu-bar-mode)
+  (menu-bar-mode -1))
 
-(if is-mac
-    (setq mac-option-modifier 'meta
-          mac-command-modifier 'super)
-  (when (fboundp 'menu-bar-mode)
-    (menu-bar-mode -1)))
+(when is-mac
+  (setq mac-option-modifier 'meta)
+  (setq frame-resize-pixelwise t))
 
 ;;------------------------------------------------------------------------
 ;; Speed up emacs loading
