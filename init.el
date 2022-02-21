@@ -490,9 +490,28 @@
     (and (file-exists-p slime-helper-file)
          (load (expand-file-name slime-helper-file)))))
 
+(use-package tide
+  :ensure t
+  :config
+  (defun setup-tide-mode ()
+    "Set up Tide mode."
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (flycheck-add-next-checker 'tsx-tide 'javascript-eslint)
+    (setq flycheck-check-syntax-automatically '(save-mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    (company-mode +1))
+
+  (setq company-tooltip-align-annotations t)
+
+  (add-hook 'before-save-hook 'tide-format-before-save)
+  (add-hook 'typescript-mode-hook #'setup-tide-mode))
+
 (use-package web-mode
   :ensure t
-  :mode ("\\.html$" . web-mode)
+  :mode ("\\.html\\'" "\\.tsx\\'")
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
