@@ -145,6 +145,42 @@
   :config
   (add-to-list 'company-backends 'company-restclient))
 
+(use-package consult
+  ;; Replace bindings. Lazily loaded due to use-package.
+  :bind (("C-c h" . consult-history)
+         ("C-c o" . consult-outline)
+         ("C-x b" . consult-buffer)
+         ("C-x 4 b" . consult-buffer-other-window)
+         ("C-x 5 b" . consult-buffer-other-frame)
+         ("C-x r x" . consult-register)
+         ("C-x r b" . consult-bookmark)
+         ("M-g o" . consult-outline) ;; "M-s o" is a good alternative
+         ("M-g m" . consult-mark)    ;; "M-s m" is a good alternative
+         ("M-g l" . consult-line)    ;; "M-s l" is a good alternative
+         ("M-g i" . consult-imenu)   ;; "M-s i" is a good alternative
+         ("M-g e" . consult-error)   ;; "M-s e" is a good alternative
+         ("M-s m" . consult-multi-occur)
+         ("M-g s" . consult-project-ripgrep)
+         ("M-y" . consult-yank-pop)
+         ("<help> a" . consult-apropos))
+  :init
+  (fset 'multi-occur #'consult-multi-occur)
+  (defun consult-project-ripgrep ()
+    (interactive)
+    (let ((xref-search-program 'ripgrep)
+          ;; xref--show-defs-minibuffer requires xref 1.0.4, comes with emacs 28
+          (xref-show-xrefs-function 'xref--show-defs-minibuffer))
+      (call-interactively 'project-find-regexp)))
+  :config
+  (consult-preview-mode))
+
+(use-package consult-selectrum
+  :ensure t)
+
+(use-package consult-flycheck
+  :bind (:map flycheck-command-map
+              ("!" . consult-flycheck)))
+
 (use-package css-mode
   :mode "\\.css\\'"
   :config
@@ -209,75 +245,6 @@
   :ensure t
   :mode (("\\.groovy$" . groovy-mode)
          ("\\.gradle$" . groovy-mode)))
-
-(use-package helm
-  :ensure t
-  :bind (("M-x"     . helm-M-x)
-         ("C-x C-f" . helm-find-files)
-         ("M-y"     . helm-show-kill-ring)
-         ("C-x b"   . helm-mini)
-         :map helm-map
-         ("<tab>" . helm-execute-persistent-action)
-         ("C-z"   . helm-select-action))
-  :config
-  (setq
-   completion-styles (if (version<= emacs-version "27.0")
-                         '(helm-flex) '(flex))
-   helm-split-window-inside-p t))
-
-(use-package helm-ag
-  :if (executable-find "ag")
-  :ensure t
-  :after helm
-  :commands (helm-ag helm-projectile-ag)
-  :config
-  (setq helm-ag-insert-at-point 'symbol
-        helm-ag-use-agignore t))
-
-(use-package helm-descbinds
-  :ensure t
-  :after helm
-  :bind ("C-h b" . helm-descbinds)
-  :config
-  (fset 'describe-bindings 'helm-descbinds))
-
-(use-package helm-gtags
-  :if (executable-find "global")
-  :ensure t
-  :after helm
-  :config
-  (setq helm-gtags-ignore-case t
-        helm-gtags-auto-update t
-        helm-gtags-use-input-at-cursor t
-        helm-gtags-pulse-at-cursor t
-        helm-gtags-suggested-key-mapping t)
-  :hook ((dired-mode
-	  eshell-mode
-	  c-mode
-          asm-mode) . helm-gtags-mode)
-  :bind (:map helm-gtags-mode-map
-	      ("M-." . helm-gtags-dwim)
-	      ("M-," . helm-gtags-pop-stack)))
-
-(use-package helm-lsp
-  :ensure t
-  :after (helm lsp-mode)
-  :commands helm-lsp-workspace-symbol)
-
-(use-package helm-projectile
-  :ensure t
-  :after (projectile helm)
-  :config (helm-projectile-on))
-
-(use-package helm-rg
-  :if (executable-find "rg")
-  :ensure t
-  :after helm)
-
-(use-package helm-swoop
-  :ensure t
-  :after helm
-  :bind ("C-c h o" . helm-multi-swoop-all))
 
 (use-package htmlize
   :ensure t)
@@ -345,6 +312,11 @@
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
+
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode))
 
 (use-package material-theme
   :ensure t
@@ -480,6 +452,28 @@
 (use-package scala-mode
   :ensure t
   :mode "\\.s\\(c\\|cala\\|bt\\)$")
+
+(use-package selectrum
+  :ensure t
+  :init
+  (selectrum-mode +1))
+
+(use-package prescient
+  :ensure t
+  :init
+  (prescient-persist-mode +1)
+  :config
+  (setq prescient-filter-method '(literal regexp initialism)))
+
+(use-package selectrum-prescient
+  :ensure t
+  :init
+  (selectrum-prescient-mode +1))
+
+(use-package company-prescient
+  :ensure t
+  :init
+  (company-prescient-mode +1))
 
 (use-package slime
   :if (executable-find "sbcl")
