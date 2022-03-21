@@ -461,6 +461,9 @@
   :mode "\\.jsx?\\'"
   :interpreter "node")
 
+(use-package rustic
+  :ensure t)
+
 (use-package sbt-mode
   :ensure t
   :commands sbt-start sbt-command
