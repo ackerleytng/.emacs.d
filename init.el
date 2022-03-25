@@ -146,40 +146,66 @@
   (add-to-list 'company-backends 'company-restclient))
 
 (use-package consult
-  ;; Replace bindings. Lazily loaded due to use-package.
-  :bind (("C-c h" . consult-history)
-         ("C-c o" . consult-outline)
-         ("C-x b" . consult-buffer)
-         ("C-x 4 b" . consult-buffer-other-window)
-         ("C-x 5 b" . consult-buffer-other-frame)
-         ("C-x r x" . consult-register)
-         ("C-x r b" . consult-bookmark)
-         ("M-g o" . consult-outline) ;; "M-s o" is a good alternative
-         ("M-g m" . consult-mark)    ;; "M-s m" is a good alternative
-         ("M-g l" . consult-line)    ;; "M-s l" is a good alternative
-         ("M-g i" . consult-imenu)   ;; "M-s i" is a good alternative
-         ("M-g e" . consult-error)   ;; "M-s e" is a good alternative
-         ("M-s m" . consult-multi-occur)
-         ("M-g s" . consult-project-ripgrep)
-         ("M-y" . consult-yank-pop)
-         ("<help> a" . consult-apropos))
+  :ensure t
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-kmacro)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#" . consult-register-load)
+         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ("<help> a" . consult-apropos)            ;; orig. apropos-command
+         ;; M-g bindings (goto-map)
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi)
+         ;; C-c s bindings (search-map)
+         ("C-c s f" . consult-find)
+         ("C-c s D" . consult-locate)
+         ("C-c s g" . consult-grep)
+         ("C-c s G" . consult-git-grep)
+         ("C-c s s" . consult-ripgrep)
+         ("C-c s l" . consult-line)
+         ("C-c s L" . consult-line-multi)
+         ("C-c s m" . consult-multi-occur)
+         ("C-c s k" . consult-keep-lines)
+         ("C-c s u" . consult-focus-lines)
+         ;; Isearch integration
+         ("C-c s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . consult-history))
   :init
-  (fset 'multi-occur #'consult-multi-occur)
-  (defun consult-project-ripgrep ()
-    (interactive)
-    (let ((xref-search-program 'ripgrep)
-          ;; xref--show-defs-minibuffer requires xref 1.0.4, comes with emacs 28
-          (xref-show-xrefs-function 'xref--show-defs-minibuffer))
-      (call-interactively 'project-find-regexp)))
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+  (advice-add #'register-preview :override #'consult-register-window)
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
   :config
-  (consult-preview-mode))
-
-(use-package consult-selectrum
-  :ensure t)
-
-(use-package consult-flycheck
-  :bind (:map flycheck-command-map
-              ("!" . consult-flycheck)))
+  (autoload 'projectile-project-root "projectile")
+  (setq consult-project-function (lambda (_) (projectile-project-root))))
 
 (use-package css-mode
   :mode "\\.css\\'"
@@ -195,6 +221,43 @@
 (use-package djvu
   :if (executable-find "djvused")
   :ensure t)
+
+(use-package emacs
+  :init
+  (defun crm-indicator (args)
+    (cons (concat "[CRM] " (car args)) (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  (setq read-extended-command-predicate
+        #'command-completion-default-include-p)
+
+  (setq enable-recursive-minibuffers t))
+
+(use-package embark
+  :ensure t
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim)
+   ("C-h B" . embark-bindings))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package erc
   :ensure t
@@ -315,6 +378,9 @@
 
 (use-package marginalia
   :ensure t
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
   :init
   (marginalia-mode))
 
@@ -330,6 +396,13 @@
 
 (use-package nginx-mode
   :ensure t)
+
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package org
   :ensure nil
@@ -392,9 +465,6 @@
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
-(use-package posframe
-  :ensure t)
-
 (use-package python
   :ensure nil
   :config
@@ -436,6 +506,10 @@
 (use-package rustic
   :ensure t)
 
+(use-package savehist
+  :init
+  (savehist-mode))
+
 (use-package sbt-mode
   :ensure t
   :commands sbt-start sbt-command
@@ -452,28 +526,6 @@
 (use-package scala-mode
   :ensure t
   :mode "\\.s\\(c\\|cala\\|bt\\)$")
-
-(use-package selectrum
-  :ensure t
-  :init
-  (selectrum-mode +1))
-
-(use-package prescient
-  :ensure t
-  :init
-  (prescient-persist-mode +1)
-  :config
-  (setq prescient-filter-method '(literal regexp initialism)))
-
-(use-package selectrum-prescient
-  :ensure t
-  :init
-  (selectrum-prescient-mode +1))
-
-(use-package company-prescient
-  :ensure t
-  :init
-  (company-prescient-mode +1))
 
 (use-package slime
   :if (executable-find "sbcl")
@@ -505,6 +557,12 @@
 
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook #'setup-tide-mode))
+
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode)
+  (setq vertico-cycle t))
 
 (use-package web-mode
   :ensure t
