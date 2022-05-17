@@ -334,6 +334,10 @@
   :ensure t
   :mode (("\\.json\\'" . json-mode)))
 
+(use-package kotlin-mode
+  :ensure t
+  :hook ((kotlin-mode . lsp)))
+
 (use-package lsp-java
   :ensure t
   :after lsp-mode
@@ -490,6 +494,14 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package recentf
+  :ensure t
+  :config
+  (setq recentf-max-saved-items 512
+        recentf-max-menu-items 16
+        recentf-auto-cleanup 'never)
+  (recentf-mode +1))
+
 (use-package rego-mode
   :ensure t)
 
@@ -508,7 +520,9 @@
         js2-missing-semi-one-line-override nil))
 
 (use-package rustic
-  :ensure t)
+  :ensure t
+  :config
+  (setq rustic-format-on-save t))
 
 (use-package savehist
   :init
