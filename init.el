@@ -181,18 +181,18 @@
          ("M-g i" . consult-imenu)
          ("M-g I" . consult-imenu-multi)
          ;; C-c s bindings (search-map)
-         ("C-c s f" . consult-find)
-         ("C-c s D" . consult-locate)
-         ("C-c s g" . consult-grep)
-         ("C-c s G" . consult-git-grep)
-         ("C-c s s" . consult-ripgrep)
-         ("C-c s l" . consult-line)
-         ("C-c s L" . consult-line-multi)
-         ("C-c s m" . consult-multi-occur)
-         ("C-c s k" . consult-keep-lines)
-         ("C-c s u" . consult-focus-lines)
+         ("M-s d" . consult-find)
+         ("M-s D" . consult-locate)
+         ("M-s g" . consult-grep)
+         ("M-s G" . consult-git-grep)
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
+         ("M-s m" . consult-multi-occur)
+         ("M-s k" . consult-keep-lines)
+         ("M-s u" . consult-focus-lines)
          ;; Isearch integration
-         ("C-c s e" . consult-isearch-history)
+         ("M-s e" . consult-isearch-history)
          :map isearch-mode-map
          ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
          ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
@@ -202,6 +202,7 @@
          :map minibuffer-local-map
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
          ("M-r" . consult-history))
+  :hook (completion-list-mode . consult-preview-at-point-mode)
   :init
   (setq register-preview-delay 0.5
         register-preview-function #'consult-register-format)
@@ -209,6 +210,14 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   :config
+  (consult-customize
+   consult-theme
+   :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-recent-file
+   consult--source-project-recent-file
+   :preview-key (kbd "M-."))
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root))))
 
