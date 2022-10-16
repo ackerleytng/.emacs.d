@@ -385,10 +385,14 @@
   :init
   (marginalia-mode))
 
-(use-package material-theme
+(use-package modus-themes
   :ensure t
+  :init
+  ;; Load the theme files before enabling a theme
+  (modus-themes-load-themes)
   :config
-  (load-theme 'material t))
+  ;; Load the theme of your choice:
+  (modus-themes-load-vivendi))
 
 (use-package multiple-cursors
   :ensure t
