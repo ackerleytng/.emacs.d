@@ -122,6 +122,7 @@
 
 (use-package clojure-mode
   :ensure t
+  :after (flycheck-clj-kondo)
   :mode (("\\.edn$" . clojure-mode))
   :config
   (require 'flycheck-clj-kondo))
