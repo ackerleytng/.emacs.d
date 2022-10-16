@@ -94,6 +94,10 @@
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
         aw-scope 'frame))
 
+(use-package add-node-modules-path
+  :ensure t
+  :hook (((js2-mode rjsx-mode typescript-mode) . add-node-modules-path)))
+
 (use-package ag
   :ensure t)
 
@@ -314,14 +318,7 @@
 
 (use-package js2-mode
   :ensure t
-  :mode (("\\.js\\'" . js2-mode)
-         ("\\.js.erb\\'" . js2-mode)
-         ("\\.jsx\\'" . js2-jsx-mode))
-  :config
-  (setq js2-basic-offset 2
-        js-switch-indent-offset 2
-        js2-strict-missing-semi-warning nil
-        js2-missing-semi-one-line-override nil))
+  :mode "\\.js\\'")
 
 (use-package json-mode
   :ensure t
@@ -344,6 +341,9 @@
   :init (setq lsp-keymap-prefix "C-c l")
   :hook ((scala-mode . lsp)
          (c++-mode . lsp)
+         (js2-mode . lsp)
+         (rjsx-mode . lsp)
+         (typescript-mode . lsp)
          (go-mode . lsp-deferred)
          (lsp-mode . lsp-lens-mode)
          (lsp-mode . lsp-enable-which-key-integration))
@@ -500,8 +500,13 @@
 
 (use-package rjsx-mode
   :ensure t
-  :mode "\\.jsx?\\'"
-  :interpreter "node")
+  :mode "\\.[jt]sx\\'"
+  :config
+  (setq js2-basic-offset 2
+        js-indent-level 2
+        js-switch-indent-offset 2
+        js2-strict-missing-semi-warning nil
+        js2-missing-semi-one-line-override nil))
 
 (use-package rustic
   :ensure t)
@@ -539,24 +544,12 @@
     (and (file-exists-p slime-helper-file)
          (load (expand-file-name slime-helper-file)))))
 
-(use-package tide
+(use-package typescript-mode
   :ensure t
+  :mode ("\\.ts\\'"
+         "\\.tsx\\'")
   :config
-  (defun setup-tide-mode ()
-    "Set up Tide mode."
-    (interactive)
-    (tide-setup)
-    (flycheck-mode +1)
-    (flycheck-add-next-checker 'tsx-tide 'javascript-eslint)
-    (setq flycheck-check-syntax-automatically '(save-mode-enabled))
-    (eldoc-mode +1)
-    (tide-hl-identifier-mode +1)
-    (company-mode +1))
-
-  (setq company-tooltip-align-annotations t)
-
-  (add-hook 'before-save-hook 'tide-format-before-save)
-  (add-hook 'typescript-mode-hook #'setup-tide-mode))
+  (setq typescript-indent-switch-clauses nil))
 
 (use-package vertico
   :ensure t
@@ -566,7 +559,7 @@
 
 (use-package web-mode
   :ensure t
-  :mode ("\\.html\\'" "\\.tsx\\'")
+  :mode "\\.html\\'"
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
