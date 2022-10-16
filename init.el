@@ -472,21 +472,6 @@
   :hook
   (after-save . delete-trailing-whitespace))
 
-(use-package pyenv-mode
-  :ensure t
-  :config
-  (defun projectile-pyenv-mode-set ()
-    "Set pyenv version matching project name."
-    (let ((project (projectile-project-name)))
-      (if (member project (pyenv-mode-versions))
-          (pyenv-mode-set project)
-        (pyenv-mode-unset))))
-  :hook ((projectile-switch-project . projectile-pyenv-mode-set)
-         (python-mode . pyenv-mode)))
-
-(use-package pyenv-mode-auto
-  :ensure t)
-
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
