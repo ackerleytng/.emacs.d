@@ -449,7 +449,10 @@
   :ensure t
   :hook ((lisp-mode emacs-lisp-mode clojure-mode cider-repl-mode scheme-mode) .
          paredit-mode)
-  :diminish paredit-mode)
+  :diminish paredit-mode
+  :bind (:map paredit-mode-map
+              ("M-s" . nil)
+              ("M-?" . nil)))
 
 (use-package paxedit
   :ensure t
