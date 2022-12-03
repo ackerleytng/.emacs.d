@@ -354,6 +354,7 @@
   :commands (lsp lsp-deferred)
   :init (setq lsp-keymap-prefix "C-c l")
   :hook ((scala-mode . lsp)
+         (c-mode . lsp)
          (c++-mode . lsp)
          (js2-mode . lsp)
          (rjsx-mode . lsp)
