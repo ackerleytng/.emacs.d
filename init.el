@@ -127,29 +127,6 @@
   :config
   (require 'flycheck-clj-kondo))
 
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode)
-  (setq
-   company-minimum-prefix-length 1
-   company-tooltip-limit 20
-   company-show-quick-access t
-   company-selection-wrap-around t)
-  :diminish company-mode)
-
-(use-package company-c-headers
-  :ensure t
-  :after company
-  :config
-  (add-to-list 'company-backends 'company-c-headers))
-
-(use-package company-restclient
-  :ensure t
-  :after (company restclient)
-  :config
-  (add-to-list 'company-backends 'company-restclient))
-
 (use-package consult
   :ensure t
   :bind (;; C-c bindings (mode-specific-map)
@@ -225,12 +202,6 @@
   :mode "\\.css\\'"
   :config
   (setq css-indent-offset 2))
-
-(use-package dap-mode
-  :ensure t
-  :hook
-  (lsp-mode . dap-mode)
-  (lsp-mode . dap-ui-mode))
 
 (use-package djvu
   :if (executable-find "djvused")
@@ -321,9 +292,7 @@
   :ensure t
   :config
   (setq graphviz-dot-indent-width 4
-        graphviz-dot-preview-extension "svg")
-  :init
-  (use-package company-graphviz-dot))
+        graphviz-dot-preview-extension "svg"))
 
 (use-package groovy-mode
   :ensure t
@@ -340,56 +309,6 @@
 (use-package json-mode
   :ensure t
   :mode (("\\.json\\'" . json-mode)))
-
-(use-package kotlin-mode
-  :ensure t
-  :hook ((kotlin-mode . lsp)))
-
-(use-package lsp-java
-  :ensure t
-  :after lsp-mode
-  :hook ((java-mode . lsp))
-  :config
-  (setq lsp-java-vmargs
-        (list
-         "-Xmx4G"
-         "-XX:+UseG1GC"
-         "-XX:+UseStringDeduplication")))
-
-(use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :init (setq lsp-keymap-prefix "C-c l")
-  :hook ((scala-mode . lsp)
-         (c-mode . lsp)
-         (c++-mode . lsp)
-         (js2-mode . lsp)
-         (rjsx-mode . lsp)
-         (typescript-mode . lsp)
-         (go-mode . lsp-deferred)
-         (lsp-mode . lsp-lens-mode)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :config
-  (setq lsp-log-io nil
-        lsp-signature-render-documentation nil))
-
-
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred))))
-
-(use-package lsp-treemacs
-  :ensure t
-  :commands lsp-treemacs-errors-list)
-
-(use-package lsp-ui
-  :ensure t
-  :after lsp-mode
-  :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-doc-enable nil))
 
 (use-package lua-mode
   :ensure t)
