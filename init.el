@@ -212,6 +212,8 @@
 
 (use-package emacs
   :init
+
+  ;; -- For vertico
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
   (defun crm-indicator (args)
@@ -231,7 +233,10 @@
   (setq read-extended-command-predicate
         #'command-completion-default-include-p)
 
-  (setq enable-recursive-minibuffers t))
+  (setq enable-recursive-minibuffers t)
+  ;; -- End for vertico
+
+  )
 
 (use-package embark
   :ensure t
