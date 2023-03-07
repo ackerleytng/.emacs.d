@@ -26,8 +26,10 @@ transient/
 projectile.cache
 elpy/
 .lsp-session*
+history
 
 .cache/
 .dap-breakpoints
 eclipse.jdt.ls/
 workspace/
+straight/
