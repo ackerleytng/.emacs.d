@@ -336,11 +336,9 @@
 (use-package modus-themes
   :ensure t
   :init
-  ;; Load the theme files before enabling a theme
-  (modus-themes-load-themes)
+  (require-theme 'modus-themes)
   :config
-  ;; Load the theme of your choice:
-  (modus-themes-load-vivendi))
+  (load-theme 'modus-vivendi :no-confirm))
 
 (use-package multiple-cursors
   :ensure t
