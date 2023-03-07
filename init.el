@@ -110,13 +110,6 @@
 (use-package all-the-icons
   :ensure t)
 
-(use-package avy
-  :ensure t
-  :bind (("C-;" . avy-goto-char)
-         ("M-g g" . avy-goto-line)
-	 ("M-g M-g" . avy-goto-line)
-	 ("C-'" . avy-goto-word-0)))
-
 (use-package cider
   :ensure t)
 
