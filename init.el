@@ -455,10 +455,11 @@
         js2-strict-missing-semi-warning nil
         js2-missing-semi-one-line-override nil))
 
-(use-package rustic
+(use-package rust-mode
   :ensure t
+  :mode (("\\.rs\\'" . rust-mode))
   :config
-  (setq rustic-format-on-save t))
+  (setq rust-format-on-save t))
 
 (use-package savehist
   :init
