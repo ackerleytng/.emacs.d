@@ -570,6 +570,10 @@
     (and (file-exists-p slime-helper-file)
          (load (expand-file-name slime-helper-file)))))
 
+(use-package tuareg
+  :ensure t
+  :mode (("\\.ocamlinit\\'" . tuareg-mode)))
+
 (use-package vertico
   :ensure t
   :init
