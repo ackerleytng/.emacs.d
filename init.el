@@ -263,6 +263,11 @@
   (global-corfu-mode)
   (corfu-indexed-mode))
 
+(use-package crux
+  :ensure t
+  :bind
+  (("C-c e" . crux-eval-and-replace)
+   ("C-c D" . crux-delete-file-and-buffer)))
 
 (use-package css-mode
   :mode "\\.css\\'"
