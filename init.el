@@ -101,10 +101,6 @@
 ;; Packages
 ;;------------------------------------------------------------------------
 
-(use-package add-node-modules-path
-  :ensure t
-  :hook (((js2-mode rjsx-mode typescript-mode) . add-node-modules-path)))
-
 (use-package aggressive-indent
   :ensure t
   :hook ((lisp-mode emacs-lisp-mode clojure-mode scheme-mode) .
