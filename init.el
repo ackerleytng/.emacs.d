@@ -378,6 +378,26 @@
   :ensure t
   :hook (c-mode-common . google-set-c-style))
 
+(use-package gptel
+  :ensure t
+  :bind (("C-c C-<return>" . gptel-send)
+	 ("C-c g" . gptel-menu))
+  :config
+  (setq gptel-default-mode 'markdown-mode)
+
+  (gptel-make-gemini "Gemini"
+    :key (lambda () (getenv "GEMINI_API_KEY"))
+    :stream t)
+  (gptel-make-openai "Cerebras"
+    :host "api.cerebras.ai"
+    :endpoint "/v1/chat/completions"
+    :stream t
+    :key (lambda () (getenv "CEREBRAS_API_KEY"))
+    :models '(llama3.1-8b
+	      gpt-oss-120b
+	      qwen-3-235b-a22b-instruct-2507
+	      zai-glm-4.7)))
+
 (use-package graphql-mode
   :ensure t
   :mode (("\\.graphql$" . graphql-mode)))
