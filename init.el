@@ -574,6 +574,11 @@
   :ensure t
   :mode (("\\.ocamlinit\\'" . tuareg-mode)))
 
+(use-package utop
+  :ensure t
+  :config
+  (add-hook 'tuareg-mode-hook #'utop-minor-mode))
+
 (use-package vertico
   :ensure t
   :init
