@@ -570,24 +570,6 @@
     (and (file-exists-p slime-helper-file)
          (load (expand-file-name slime-helper-file)))))
 
-(use-package tree-sitter
-  :ensure t
-  :config
-  ;; activate tree-sitter on any buffer containing code for which it has a parser available
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
-(use-package tree-sitter-langs
-  :ensure t
-  :after tree-sitter)
-
-(use-package typescript-mode
-  :ensure t
-  :mode ("\\.ts\\'"
-         "\\.tsx\\'")
-  :config
-  (setq typescript-indent-switch-clauses nil))
-
 (use-package vertico
   :ensure t
   :init
