@@ -416,20 +416,6 @@
 (use-package htmlize
   :ensure t)
 
-(use-package js
-  :ensure nil
-  :bind (:map js-mode-map
-              ("M-." . nil)))
-
-(use-package js2-mode
-  :ensure t
-  :mode "\\.js\\'")
-
-(use-package json-mode
-  :ensure t
-  :mode (("\\.json\\'" . json-mode)))
-
-
 ;; (use-package lsp-bridge
 ;;   :straight (lsp-bridge
 ;;              :type git :host github
@@ -543,16 +529,6 @@
 (use-package restclient
   :ensure t
   :mode ("\\.http\\'" . restclient-mode))
-
-(use-package rjsx-mode
-  :ensure t
-  :mode "\\.[jt]sx\\'"
-  :config
-  (setq js2-basic-offset 2
-        js-indent-level 2
-        js-switch-indent-offset 2
-        js2-strict-missing-semi-warning nil
-        js2-missing-semi-one-line-override nil))
 
 (use-package rust-mode
   :ensure t
