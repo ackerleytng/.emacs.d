@@ -71,7 +71,7 @@
       kept-old-versions 5
       ring-bell-function 'ignore)
 
-(fset `yes-or-no-p `y-or-n-p)
+(setopt use-short-answers t)
 
 (add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font-10"))
 
