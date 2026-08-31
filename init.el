@@ -160,10 +160,7 @@
 
 (use-package clojure-mode
   :ensure t
-  :after (flycheck-clj-kondo)
-  :mode (("\\.edn$" . clojure-mode))
-  :config
-  (require 'flycheck-clj-kondo))
+  :mode (("\\.edn$" . clojure-mode)))
 
 (use-package consult
   :ensure t
@@ -385,9 +382,6 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
-
-(use-package flycheck-clj-kondo
-  :ensure t)
 
 (use-package geiser
   :ensure t)
