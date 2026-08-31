@@ -46,39 +46,17 @@
              (garbage-collect)) t)
 
 ;;------------------------------------------------------------------------
-;; Bootstrap use-package
+;; Enable melpa
 ;;------------------------------------------------------------------------
 
-(eval-when-compile
-  (require 'package)
-  (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/") t)
-  (package-initialize)
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
-  (require 'use-package))
-(use-package diminish
-  :ensure t)
-(use-package bind-key
-  :ensure t)
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
 
-;;------------------------------------------------------------------------
-;; Bootstrap straight
-;;------------------------------------------------------------------------
-
-;; (defvar bootstrap-version)
-;; (let ((bootstrap-file
-;;        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-;;       (bootstrap-version 6))
-;;   (unless (file-exists-p bootstrap-file)
-;;     (with-current-buffer
-;;         (url-retrieve-synchronously
-;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-;;          'silent 'inhibit-cookies)
-;;       (goto-char (point-max))
-;;       (eval-print-last-sexp)))
-;;   (load bootstrap-file nil 'nomessage))
+;; (use-package diminish
+;;   :ensure t)
+;; (use-package bind-key
+;;   :ensure t)
 
 ;;------------------------------------------------------------------------
 ;; Settings
