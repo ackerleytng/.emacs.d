@@ -416,6 +416,13 @@
 (use-package htmlize
   :ensure t)
 
+(use-package kkp
+  :ensure t
+  :hook (tty-setup . global-kkp-mode)
+  :config
+  ;; (setq kkp-alt-modifier 'alt) ;; use this if you want to map the Alt keyboard modifier to Alt in Emacs (and not to Meta)
+  )
+
 (use-package lua-mode
   :ensure t)
 
