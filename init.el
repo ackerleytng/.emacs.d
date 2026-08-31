@@ -263,12 +263,6 @@
   (global-corfu-mode)
   (corfu-indexed-mode))
 
-(use-package corfu-terminal
-  :ensure t
-  :unless (display-graphic-p)
-  :after corfu
-  :config
-  (corfu-terminal-mode +1))
 
 (use-package css-mode
   :mode "\\.css\\'"
