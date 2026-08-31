@@ -270,6 +270,9 @@
   :if (executable-find "djvused")
   :ensure t)
 
+(use-package dune
+  :ensure t)
+
 (use-package ediff
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
