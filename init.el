@@ -665,7 +665,7 @@
 ;; Emacs Theme
 ;;------------------------------------------------------------------------
 
-(use-package gruvbox-theme
+(use-package modus-themes
   :ensure t
   :config
-  (load-theme 'gruvbox-dark-hard t))
+  (load-theme 'modus-vivendi t))
