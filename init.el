@@ -416,19 +416,6 @@
 (use-package htmlize
   :ensure t)
 
-;; (use-package lsp-bridge
-;;   :straight (lsp-bridge
-;;              :type git :host github
-;;              :repo "manateelazycat/lsp-bridge" :files ("*"))
-;;   :bind (("M-." . lsp-bridge-find-def)
-;;          ("M-," . lsp-bridge-find-def-return)
-;;          ("M-?" . lsp-bridge-find-references))
-;;   :init
-;;   (global-lsp-bridge-mode)
-;;   :custom
-;;   (lsp-bridge-python-lsp-server "pylsp")
-;;   (acm-enable-doc nil))
-
 (use-package lua-mode
   :ensure t)
 
