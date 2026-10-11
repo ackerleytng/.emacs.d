@@ -503,7 +503,8 @@
   :config
   (setq python-indent-offset 4)
   :hook
-  (after-save . delete-trailing-whitespace))
+  (python-mode . (lambda ()
+                   (add-hook 'after-save-hook #'delete-trailing-whitespace nil t))))
 
 (use-package rainbow-delimiters
   :ensure t
