@@ -33,3 +33,13 @@ history
 eclipse.jdt.ls/
 workspace/
 straight/
+eln-cache/
+tree-sitter/
+projects
+projectile-frecency.eld
+network-security.data
+server/
+\#*\#
+.\#*
+flycheck_*.el
+*_flymake.*
