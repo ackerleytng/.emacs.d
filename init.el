@@ -73,7 +73,7 @@
 
 (setopt use-short-answers t)
 
-(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font-10"))
+(add-to-list 'default-frame-alist '(font . "IoskeleyMonoTerm Nerd Font Mono-12"))
 
 ;;------------------------------------------------------------------------
 ;; Packages
