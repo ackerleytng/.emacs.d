@@ -583,6 +583,10 @@
     (and (file-exists-p slime-helper-file)
          (load (expand-file-name slime-helper-file)))))
 
+(use-package tsx-ts-mode
+  :ensure nil
+  :mode "\\.tsx\\'")
+
 (use-package tuareg
   :ensure t
   :mode (("\\.ocamlinit\\'" . tuareg-mode)))
