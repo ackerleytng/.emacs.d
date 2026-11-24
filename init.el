@@ -456,6 +456,11 @@
 (use-package nginx-mode
   :ensure t)
 
+(use-package ocp-indent
+  :ensure nil
+  :load-path "/home/ackerleytng/.opam/default/share/emacs/site-lisp"
+  :when (executable-find "ocp-indent"))
+
 (use-package orderless
   :ensure t
   :init
