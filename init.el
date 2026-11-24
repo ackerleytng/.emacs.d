@@ -396,8 +396,6 @@
   :bind (("C-c C-<return>" . gptel-send)
 	 ("C-c g" . gptel-menu))
   :config
-  (setq gptel-default-mode 'markdown-mode)
-
   (gptel-make-gemini "Gemini"
     :key (lambda () (getenv "GEMINI_API_KEY"))
     :stream t)
