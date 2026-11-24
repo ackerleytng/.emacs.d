@@ -548,12 +548,11 @@
   :init
   (savehist-mode))
 
-(use-package switch-window
+(use-package ace-window
   :ensure t
   :custom
-  (switch-window-threshold 2)
-  (switch-window-shortcut-appearance 'asciiart)
-  :bind ("M-o" . switch-window))
+  (aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9 ?0))
+  :bind* ("M-o" . ace-window))
 
 (use-package sbt-mode
   :ensure t
