@@ -368,6 +368,8 @@
 
 (use-package ghostel
   :ensure t
+  :custom
+  (ghostel-buffer-identification-format "*ghostel::%d*")
   :config
   (defun ackerleytng/ghostel-insert-address-comments ()
     "Select an open file using completing-read and insert address comments prompt into ghostel."
