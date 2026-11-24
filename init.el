@@ -366,6 +366,19 @@
 (use-package geiser
   :ensure t)
 
+(use-package ghostel
+  :ensure t
+  :config
+  (defun ackerleytng/ghostel-insert-address-comments ()
+    "Select an open file using completing-read and insert address comments prompt into ghostel."
+    (interactive)
+    (let* ((files (delq nil (delete-dups (mapcar #'buffer-file-name (buffer-list))))))
+      (unless files
+        (user-error "No file buffers currently open"))
+      (let* ((file (completing-read "File: " files nil t))
+             (text (format "Address comments (<<==) in %s" file)))
+        (ghostel-send-string text)))))
+
 (use-package go-mode
   :ensure t
   :config
