@@ -596,6 +596,12 @@
   :config
   (add-hook 'tuareg-mode-hook #'utop-minor-mode))
 
+(use-package typescript-ts-mode
+  :ensure t
+  :mode "\\.ts\\'"
+  :config
+  (setq typescript-indent-switch-clauses nil))
+
 (use-package vertico
   :ensure t
   :init
